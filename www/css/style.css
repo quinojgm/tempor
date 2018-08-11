@@ -1,0 +1,22 @@
+.cabecera{background-color:#3d3935 !important; text-shadow:none !important; color:#FFF !important;}
+.cabecera h1{text-shadow:none;background-color: #3d3935;color:#a59568;text-align:center !important; line-height:1em; font-size:1.1em; margin:0 !important; padding-bottom:5px; width:100%;}
+.cabecera h2{text-shadow:none;background-color: #a59568;color:#3d3935;text-align:center; line-height:0.8em; font-size:1.1em; margin:0 !important; padding-bottom:5px; width:100%;}
+.titulo{text-shadow:none;background-color: #309 !important;color:#fff !important;line-height:0.8em; font-size:1.1em; margin:0 !important; padding-bottom:5px;}
+#myPanel {  
+    background: #3d3935;  
+    color: #a59568;
+}  
+#myPanel a{
+	color: #a59568;
+	text-shadow:none !important;
+	text-decoration:none;
+	padding: 15px 0px 15px 0px;
+	display: block;
+}
+#myPanel ul{
+	list-style:none;
+}
+#reloj h2{
+	text-align: center;
+	font-size: 3em;
+}

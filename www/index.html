@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name = "viewport" content = "width = 320, initial-scale = 1">
+	<meta description="Temporizador">
+	<meta author="Quino">
+	<title>Tempor</title>
+	<link rel="stylesheet" href="css/style.css"/>
+	<link rel="stylesheet" href="js/jquery.mobile-1.4.5.min.css"/>
+	<script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+    <!-- <script src="js/alertify.min.js"></script> -->
+    <script>
+    	document.addEventListener('deviceready', function () {
+			// Android customization
+			cordova.plugins.backgroundMode.setDefaults({ text:'Doing heavy tasks.'});
+			// Enable background mode
+			cordova.plugins.backgroundMode.enable();
+
+			// Called when background mode has been activated
+			cordova.plugins.backgroundMode.onactivate = function () {
+				setTimeout(function () {
+					// Modify the currently displayed notification
+					cordova.plugins.backgroundMode.configure({
+						text:'Running in background for more than 5s now.'
+					});
+				}, 5000);
+			}
+		}, false);
+    </script>
+</head>
+<body>
+<!--             -->
+<!-- PAGINA HOME -->
+<!--             -->
+<div data-role="page" id="home" data-dom-cache="true" data-theme="a"> 
+	<div data-role="header" data-position="fixed" class="cabecera">
+        <img src="./img/logo30x30.png" class="ui-btn-left" />
+        <h1 style="text-align:left; margin-left:50px;">Tempor</h1>
+        <a href="#myPanel" data-transition="slide" class="ui-btn-right ui-alt-icon ui-nodisc-icon ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all">Menu</a>		        
+	</div>    
+	<div class="panel left" data-role="panel" data-position="left" data-display="overlay" id="myPanel">  
+        <ul>
+            <li><a href="#" title="Configuracion" onclick="Configuracion()" id="lipanel1">Configuración</a></li>  
+            <li><a href="#acercade" title="Acerca de" id="lipanel3">Acerca de</a></li>   
+        </ul>  
+    </div>  
+	<div role="main" class="ui-content" id="menu_home">
+		<div id="botones">
+			<a href="#" id="botonIniciar" class="ui-btn">INICIAR</a>
+			<a href="#" id="botonParar" class="ui-btn">PARAR</a>
+			<a href="#" id="botonReiniciar" class="ui-btn">REINICIAR</a>
+		</div>
+		<div id="reloj"><h2>00:00:00</h2></div>
+		<div>
+			<form>
+	      			<label> Alarma 1 </label>
+	     			<input type="number" id="min_alarma1" name="min_alarma1" >      
+	      			<label> Alarma 2 </label>
+	      			<input type="number" id="min_alarma2" name="min_alarma2" >
+	      			<a href="#" id="botonCambiar" class="ui-btn">Aceptar</a> 			
+	    	</form>	
+		</div>
+	</div>
+</div>	
+<script>
+	var horas=0;
+	var minutos=0;
+	var segundos=0;
+	var mincont=0;
+	var timer;
+	var alm1_on=1;
+	var alm2_on=1;
+	var temp_ini=0;
+	var alarma1=0; //Cada x minutos
+	var alarma2=0; //Cada x minutos
+
+    $(document).ready(function(){
+		alarma1=localStorage.getItem("alarma1");
+		$('#min_alarma1').val(alarma1);
+		alarma2=localStorage.getItem("alarma2");
+		$('#min_alarma2').val(alarma2);
+	});	
+
+	$("#botonIniciar").click( function(){
+		if(temp_ini==0){
+			temp_ini=1;
+			temporizador();
+		}
+	});
+
+	$("#botonParar").click( function(){
+		clearTimeout(timer);
+		temp_ini=0;
+	});
+	$("#botonReiniciar").click( function(){
+		clearTimeout(timer);
+		horas=0;minutos=0;segundos=0;
+		temp_ini=1;
+		temporizador();
+	});	
+	$("#botonCambiar").click( function(){
+		alarma1=$("#min_alarma1").val();
+		localStorage.setItem("alarma1", alarma1);
+		alarma2=$("#min_alarma2").val();
+		localStorage.setItem("alarma2", alarma2);
+	})
+
+	function temporizador(){
+		segundos++;
+		if (segundos>59){segundos=0;minutos++;mincont++;alm1_on=1;alm2_on=1;			
+			if(minutos>59){minutos=0;horas++				
+			}
+		}
+		$('#reloj').html("<h2>"+n(horas)+":"+n(minutos)+":"+n(segundos)+"</h2>");
+		if(alm1_on==1 && mincont>0 && mincont%alarma1==0){play_alarma1();}
+		if(alm2_on==1 && mincont>0 && mincont%alarma2==0){play_alarma2();}
+		//if(horas%alarma_hor==0){alarma2();}
+		timer = setTimeout('temporizador()', 1000);
+	}
+	function n(n){ //Añade un 0 a los numeros <9
+		return n > 9 ? "" + n: "0" + n;
+	}
+
+	function play_alarma1(){
+		alm1_on=0;
+    	playAudio("alarma1.mp3");
+	}
+
+	function play_alarma2(){
+		alm2_on=0;
+    	playAudio("alarma2.mp3");
+	}
+
+
+	// Play audio
+	//
+	function playAudio(src) {
+	// HTML5 Audio
+	    if (typeof Audio != "undefined") { 
+	    	src = './sound/' + src;
+	        new Audio(src).play() ;
+
+	    // Phonegap media
+	    } else if (typeof device != "undefined") {
+
+	        // Android needs the search path explicitly specified
+	        if(device.platform.toLowerCase() === "android") {
+	            src = '/android_asset/www/sound/' + src;
+	        }
+
+	        var mediaRes = new Media(src,
+	            function onSuccess() {
+	                // release the media resource once finished playing
+	                mediaRes.release();
+	            },
+	            function onError(e){
+	                console.log("error playing sound: " + JSON.stringify(e));
+	            });
+	        mediaRes.play();
+
+	    } else {
+	        console.log("no sound API to play: " + src);
+		}
+	}
+</script>
+</body>
+</html>
