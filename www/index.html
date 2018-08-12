@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="css/style.css"/>
 	<link rel="stylesheet" href="js/jquery.mobile-1.4.5.min.css"/>
 	<script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
 	<script src="cordova.js"></script>
     <!-- <script src="js/alertify.min.js"></script> -->
     <script>
@@ -29,6 +29,26 @@
 				}, 5000);
 			}
 		}, false);
+		
+		var app =
+		{
+			initialize: function()
+			{
+				this.bindEvents();
+			},
+
+			bindEvents: function()
+			{
+		  document.addEventListener('backbutton',    this.botonAtras,  false);
+			},
+
+			botonAtras: function()
+			{
+				cordova.plugins.backgroundMode.enable();
+		  //utilizar el plugin para funcionar en background
+		  //cerrar la aplicacion
+			}
+		};
     </script>
 </head>
 <body>
