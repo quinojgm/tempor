@@ -17,11 +17,11 @@
 			// Android customization
 			cordova.plugins.backgroundMode.setDefaults({ text:'Doing heavy tasks.'});
 			// Enable background mode
-			cordova.plugins.backgroundMode.enable();
+			//cordova.plugins.backgroundMode.enable();
 
 			// Called when background mode has been activated
 			cordova.plugins.backgroundMode.onactivate = function () {
-				if (temp_ini==1){temporizador();}
+				if (temp_ini==1){timer = setTimeout('temporizador()', 1000);}
 			}
 		}, false);
 		
@@ -88,7 +88,7 @@
 	var timer;
 	var alm1_on=1;
 	var alm2_on=1;
-	var temp_ini=0;
+	var temp_ini=0; //Temporizador iniciado
 	var alarma1=0; //Cada x minutos
 	var alarma2=0; //Cada x minutos
 
