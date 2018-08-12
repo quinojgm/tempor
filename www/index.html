@@ -20,30 +20,29 @@
 			cordova.plugins.backgroundMode.enable();
 
 			// Called when background mode has been activated
-			cordova.plugins.backgroundMode.onactivate = function () {
-				if (temp_ini==1){timer = setTimeout('temporizador()', 1000);}
-			}
+			//cordova.plugins.backgroundMode.onactivate = function () {
+				//if (temp_ini==1){timer = setTimeout('temporizador()', 1000);}
+				//cordova.plugins.backgroundMode.enable();
+			//}
 		}, false);
 		
-		var app =
-		{
-			initialize: function()
-			{
-				this.bindEvents();
-			},
+		// var app =
+		// {
+			// initialize: function()
+			// {
+				// this.bindEvents();
+			// },
 
-			bindEvents: function()
-			{
-		  document.addEventListener('backbutton',    this.botonAtras,  false);
-			},
+			// bindEvents: function()
+			// {
+		  // document.addEventListener('backbutton',    this.botonAtras,  false);
+			// },
 
-			botonAtras: function()
-			{
-				cordova.plugins.backgroundMode.enable();
-		  //utilizar el plugin para funcionar en background
-		  //cerrar la aplicacion
-			}
-		};
+			// botonAtras: function()
+			// {
+				// //cordova.plugins.backgroundMode.enable();
+			// }
+		// };
     </script>
 </head>
 <body>
@@ -133,7 +132,7 @@
 		if(alm1_on==1 && mincont>0 && mincont%alarma1==0){play_alarma1();}
 		if(alm2_on==1 && mincont>0 && mincont%alarma2==0){play_alarma2();}
 		//if(horas%alarma_hor==0){alarma2();}
-		timer = setTimeout('temporizador()', 1000);
+		timer = setTimeout(temporizador(), 1000);
 	}
 	function n(n){ //Añade un 0 a los numeros <9
 		return n > 9 ? "" + n: "0" + n;
