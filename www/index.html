@@ -11,7 +11,6 @@
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/jquery.mobile-1.4.5.min.js"></script>
 	<script src="cordova.js"></script>
-    <!-- <script src="js/alertify.min.js"></script> -->
     <script>
     	document.addEventListener('deviceready', function () {
 			// Android customization
@@ -19,30 +18,8 @@
 			// Enable background mode
 			cordova.plugins.backgroundMode.enable();
 
-			// Called when background mode has been activated
-			//cordova.plugins.backgroundMode.onactivate = function () {
-				//if (temp_ini==1){timer = setTimeout('temporizador()', 1000);}
-				//cordova.plugins.backgroundMode.enable();
-			//}
 		}, false);
-		
-		// var app =
-		// {
-			// initialize: function()
-			// {
-				// this.bindEvents();
-			// },
 
-			// bindEvents: function()
-			// {
-		  // document.addEventListener('backbutton',    this.botonAtras,  false);
-			// },
-
-			// botonAtras: function()
-			// {
-				// //cordova.plugins.backgroundMode.enable();
-			// }
-		// };
     </script>
 </head>
 <body>
@@ -131,7 +108,6 @@
 		$('#reloj').html("<h2>"+n(horas)+":"+n(minutos)+":"+n(segundos)+"</h2>");
 		if(alm1_on==1 && mincont>0 && mincont%alarma1==0){play_alarma1();}
 		if(alm2_on==1 && mincont>0 && mincont%alarma2==0){play_alarma2();}
-		//if(horas%alarma_hor==0){alarma2();}
 		timer = setTimeout(temporizador(), 1000);
 	}
 	function n(n){ //Añade un 0 a los numeros <9
