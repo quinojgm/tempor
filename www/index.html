@@ -101,6 +101,7 @@
 			temp_ini=1;
 			//temporizador();
 			window.BackgroundTimer.onTimerEvent(eventCallback); // subscribe on timer event
+			window.BackgroundTimer.start(successCallback, errorCallback, settings);
 		}
 	});
 
@@ -122,6 +123,7 @@
 		temp_ini=1;
 		//temporizador();
 		window.BackgroundTimer.onTimerEvent(eventCallback); // subscribe on timer event
+		window.BackgroundTimer.start(successCallback, errorCallback, settings);
 	});	
 	$("#botonCambiar").click( function(){
 		alarma1=$("#min_alarma1").val();
