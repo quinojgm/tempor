@@ -108,7 +108,7 @@
 		$('#reloj').html("<h2>"+n(horas)+":"+n(minutos)+":"+n(segundos)+"</h2>");
 		if(alm1_on==1 && mincont>0 && mincont%alarma1==0){play_alarma1();}
 		if(alm2_on==1 && mincont>0 && mincont%alarma2==0){play_alarma2();}
-		timer = setTimeout(temporizador(), 1000);
+		timer = setTimeout('temporizador()', 1000);
 	}
 	function n(n){ //Añade un 0 a los numeros <9
 		return n > 9 ? "" + n: "0" + n;
