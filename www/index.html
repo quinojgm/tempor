@@ -19,8 +19,10 @@
 			cordova.plugins.backgroundMode.enable();
 
 			cordova.plugins.backgroundMode.onactivate = function() {
-				//timer = setTimeout('temporizador()', 1000);
-				//timer = setInterval(function(){ temporizador();); }, 1000);
+				if(temp_ini==1){
+					clearInterval(timer);
+					timer = setInterval('temporizador()', 1000);
+				}
 			};
 		}, false);
 
@@ -82,23 +84,20 @@
 	$("#botonIniciar").click( function(){
 		if(temp_ini==0){
 			temp_ini=1;
-			//temporizador();
 			timer = setInterval('temporizador()', 1000);
 		}
 	});
 
 	$("#botonParar").click( function(){
-		//clearTimeout(timer);
 		clearInterval(timer);
 		temp_ini=0;
 	});
 	
 	$("#botonReiniciar").click( function(){
-		//clearTimeout(timer);
 		clearInterval(timer);
 		horas=0;minutos=0;segundos=0;
 		temp_ini=1;
-		temporizador();
+		timer = setInterval('temporizador()', 1000);
 	});	
 	
 	$("#botonCambiar").click( function(){
@@ -118,7 +117,6 @@
 			$('#reloj').html("<h2>"+n(horas)+":"+n(minutos)+":"+n(segundos)+"</h2>");
 			if(alm1_on==1 && mincont>0 && mincont%alarma1==0){play_alarma1();}
 			if(alm2_on==1 && mincont>0 && mincont%alarma2==0){play_alarma2();}
-			//timer = setTimeout('temporizador()', 1000);
 		}
 	}
 	function n(n){ //Añade un 0 a los numeros <9
