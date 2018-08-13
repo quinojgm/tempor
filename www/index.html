@@ -20,7 +20,7 @@
 
 			cordova.plugins.backgroundMode.onactivate = function() {
 				//timer = setTimeout('temporizador()', 1000);
-				timer = setInterval(function(){ temporizador();); }, 1000);
+				//timer = setInterval(function(){ temporizador();); }, 1000);
 			};
 		}, false);
 
@@ -82,7 +82,8 @@
 	$("#botonIniciar").click( function(){
 		if(temp_ini==0){
 			temp_ini=1;
-			temporizador();
+			//temporizador();
+			timer = setInterval(function(){ temporizador();); }, 1000);
 		}
 	});
 
