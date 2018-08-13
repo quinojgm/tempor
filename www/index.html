@@ -83,17 +83,19 @@
 		if(temp_ini==0){
 			temp_ini=1;
 			//temporizador();
-			timer = setInterval(function(){ temporizador();); }, 1000);
+			timer = setInterval('temporizador()', 1000);
 		}
 	});
 
 	$("#botonParar").click( function(){
-		clearTimeout(timer);
+		//clearTimeout(timer);
+		clearInterval(timer);
 		temp_ini=0;
 	});
 	
 	$("#botonReiniciar").click( function(){
-		clearTimeout(timer);
+		//clearTimeout(timer);
+		clearInterval(timer);
 		horas=0;minutos=0;segundos=0;
 		temp_ini=1;
 		temporizador();
