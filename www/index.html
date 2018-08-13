@@ -19,7 +19,8 @@
 			cordova.plugins.backgroundMode.enable();
 
 			cordova.plugins.backgroundMode.onactivate = function() {
-				timer = setTimeout('temporizador()', 1000);
+				//timer = setTimeout('temporizador()', 1000);
+				timer = setInterval(function(){ temporizador();); }, 1000);
 			};
 		}, false);
 
