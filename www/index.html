@@ -19,17 +19,12 @@
 			cordova.plugins.backgroundMode.enable();
 
 			cordova.plugins.backgroundMode.onactivate = function() {
-				function temporizador(){
-					segundos++;
-					if (segundos>59){segundos=0;minutos++;mincont++;alm1_on=1;alm2_on=1;			
-						if(minutos>59){minutos=0;horas++				
-						}
-					}
-					$('#reloj').html("<h2>"+n(horas)+":"+n(minutos)+":"+n(segundos)+"</h2>");
-					if(alm1_on==1 && mincont>0 && mincont%alarma1==0){play_alarma1();}
-					if(alm2_on==1 && mincont>0 && mincont%alarma2==0){play_alarma2();}
+				var backini=1;
+				if (temp_ini==1 && backini==1){
+					backini=0;
 					timer = setTimeout('temporizador()', 1000);
 				}
+				
 			};
 		}, false);
 
@@ -99,12 +94,14 @@
 		clearTimeout(timer);
 		temp_ini=0;
 	});
+	
 	$("#botonReiniciar").click( function(){
 		clearTimeout(timer);
 		horas=0;minutos=0;segundos=0;
 		temp_ini=1;
 		temporizador();
 	});	
+	
 	$("#botonCambiar").click( function(){
 		alarma1=$("#min_alarma1").val();
 		localStorage.setItem("alarma1", alarma1);
@@ -112,17 +109,17 @@
 		localStorage.setItem("alarma2", alarma2);
 	})
 
-	// function temporizador(){
-		// segundos++;
-		// if (segundos>59){segundos=0;minutos++;mincont++;alm1_on=1;alm2_on=1;			
-			// if(minutos>59){minutos=0;horas++				
-			// }
-		// }
-		// $('#reloj').html("<h2>"+n(horas)+":"+n(minutos)+":"+n(segundos)+"</h2>");
-		// if(alm1_on==1 && mincont>0 && mincont%alarma1==0){play_alarma1();}
-		// if(alm2_on==1 && mincont>0 && mincont%alarma2==0){play_alarma2();}
-		// timer = setTimeout('temporizador()', 1000);
-	// }
+	function temporizador(){
+		segundos++;
+		if (segundos>59){segundos=0;minutos++;mincont++;alm1_on=1;alm2_on=1;			
+			if(minutos>59){minutos=0;horas++				
+			}
+		}
+		$('#reloj').html("<h2>"+n(horas)+":"+n(minutos)+":"+n(segundos)+"</h2>");
+		if(alm1_on==1 && mincont>0 && mincont%alarma1==0){play_alarma1();}
+		if(alm2_on==1 && mincont>0 && mincont%alarma2==0){play_alarma2();}
+		timer = setTimeout('temporizador()', 1000);
+	}
 	function n(n){ //Añade un 0 a los numeros <9
 		return n > 9 ? "" + n: "0" + n;
 	}
