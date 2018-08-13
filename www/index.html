@@ -14,31 +14,10 @@
     <script>
     	document.addEventListener('deviceready', function () {
 			// Android customization
-			//cordova.plugins.backgroundMode.setDefaults({ text:'Doing heavy tasks.'});
+			cordova.plugins.backgroundMode.setDefaults({ text:'Doing heavy tasks.'});
 			// Enable background mode
-			//cordova.plugins.backgroundMode.enable();
-			
-			var eventCallback = function() {
-				// timer event fired
-				temporizador();
-			}
+			cordova.plugins.backgroundMode.enable();
 
-			var successCallback = function() {
-				// timer plugin configured successfully
-			}
-
-			var errorCallback = function(e) {
-				// an error occurred
-			}
-
-			var settings = {
-				timerInterval: 1000, // interval between ticks of the timer in milliseconds (Default: 60000)
-				startOnBoot: true, // enable this to start timer after the device was restarted (Default: false)
-				stopOnTerminate: true, // set to true to force stop timer in case the app is terminated (User closed the app and etc.) (Default: true)
-
-				hours: -1, // delay timer to start at certain time (Default: -1)
-				minutes: -1, // delay timer to start at certain time (Default: -1)
-			}
 		}, false);
 
     </script>
@@ -99,31 +78,19 @@
 	$("#botonIniciar").click( function(){
 		if(temp_ini==0){
 			temp_ini=1;
-			//temporizador();
-			window.BackgroundTimer.onTimerEvent(eventCallback); // subscribe on timer event
-			window.BackgroundTimer.start(successCallback, errorCallback, settings);
+			temporizador();
 		}
 	});
 
 	$("#botonParar").click( function(){
-		//clearTimeout(timer);
+		clearTimeout(timer);
 		temp_ini=0;
-		var successCallback = function(){
-			// timer tick
-		}
-
-		var errorCallback = function(e){
-			// an error occurred
-		}
-		window.BackgroundTimer.stop(successCallback, errorCallback);
 	});
 	$("#botonReiniciar").click( function(){
-		//clearTimeout(timer);
+		clearTimeout(timer);
 		horas=0;minutos=0;segundos=0;
 		temp_ini=1;
-		//temporizador();
-		window.BackgroundTimer.onTimerEvent(eventCallback); // subscribe on timer event
-		window.BackgroundTimer.start(successCallback, errorCallback, settings);
+		temporizador();
 	});	
 	$("#botonCambiar").click( function(){
 		alarma1=$("#min_alarma1").val();
@@ -141,7 +108,7 @@
 		$('#reloj').html("<h2>"+n(horas)+":"+n(minutos)+":"+n(segundos)+"</h2>");
 		if(alm1_on==1 && mincont>0 && mincont%alarma1==0){play_alarma1();}
 		if(alm2_on==1 && mincont>0 && mincont%alarma2==0){play_alarma2();}
-		//timer = setTimeout('temporizador()', 1000);
+		timer = setTimeout('temporizador()', 1000);
 	}
 	function n(n){ //Añade un 0 a los numeros <9
 		return n > 9 ? "" + n: "0" + n;
