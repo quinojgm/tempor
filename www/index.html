@@ -19,12 +19,7 @@
 			cordova.plugins.backgroundMode.enable();
 
 			cordova.plugins.backgroundMode.onactivate = function() {
-				var backini=1;
-				if (temp_ini==1 && backini==1){
-					backini=0;
-					timer = setTimeout('temporizador()', 1000);
-				}
-				
+				timer = setTimeout('temporizador()', 1000);
 			};
 		}, false);
 
@@ -110,15 +105,17 @@
 	})
 
 	function temporizador(){
-		segundos++;
-		if (segundos>59){segundos=0;minutos++;mincont++;alm1_on=1;alm2_on=1;			
-			if(minutos>59){minutos=0;horas++				
+		if (temp_ini==1){
+			segundos++;
+			if (segundos>59){segundos=0;minutos++;mincont++;alm1_on=1;alm2_on=1;			
+				if(minutos>59){minutos=0;horas++				
+				}
 			}
+			$('#reloj').html("<h2>"+n(horas)+":"+n(minutos)+":"+n(segundos)+"</h2>");
+			if(alm1_on==1 && mincont>0 && mincont%alarma1==0){play_alarma1();}
+			if(alm2_on==1 && mincont>0 && mincont%alarma2==0){play_alarma2();}
+			//timer = setTimeout('temporizador()', 1000);
 		}
-		$('#reloj').html("<h2>"+n(horas)+":"+n(minutos)+":"+n(segundos)+"</h2>");
-		if(alm1_on==1 && mincont>0 && mincont%alarma1==0){play_alarma1();}
-		if(alm2_on==1 && mincont>0 && mincont%alarma2==0){play_alarma2();}
-		timer = setTimeout('temporizador()', 1000);
 	}
 	function n(n){ //Añade un 0 a los numeros <9
 		return n > 9 ? "" + n: "0" + n;
